@@ -1,4 +1,5 @@
 # CrowdCast
+*Predicting MLB Attendance*
 
 ## Project Description
 
@@ -37,7 +38,7 @@ Some of these features, like last 10 winning percentage and runs per game, will 
 
 ## Data Modeling
 
-I plan to start by trying to fit a linear model to establish a baseline for prediction. Then I think it would be appropriate to use a random forest or XGBoost to try to capture non-linear relationships in the data and give better predictions.
+I plan to start by fitting a linear model to establish a baseline for prediction. Then I think it would be appropriate to use a random forest or XGBoost to capture non-linear relationships in the data and give better predictions.
 
 ## Data Visualization
 
