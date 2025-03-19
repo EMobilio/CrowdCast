@@ -31,6 +31,7 @@ def get_game_info(teams):
             try:
                 URL = f"https://www.baseball-reference.com/teams/{team}/{year}-schedule-scores.shtml"
                 res = requests.get(URL)
+                res.encoding = 'utf-8'
                 soup = BeautifulSoup(res.text, 'html.parser')
 
                 columns = ["date", "boxscore", "team", "@", "opponent", "w_or_l",
@@ -54,9 +55,6 @@ def get_game_info(teams):
 
                 # add binary dummy variable for double headers (1 = part of dh, 0 = not part of dh)
                 df_team['dh'] = [1 if "(" in date else 0 for date in df_team["date"]]
-
-                # add binary dummy variable for whether the game was on opening day (1 = yes, 0 = no)
-                df_team['opening_day'] = [1 if date == min(df_team["date"]) else 0 for date in df_team["date"]]
                 
                 # convert date column to datetime
                 df_team["date"] = df_team["date"].str.replace(r"\(.*\)", "", regex=True).str.strip()
@@ -88,6 +86,9 @@ def get_game_info(teams):
             
                 # keep only home games
                 df_team = df_team[df_team['@'].str.contains('@') == False].reset_index(drop=True)
+
+                # add binary dummy variable for whether the game was on opening day (1 = yes, 0 = no)
+                df_team['opening_day'] = [1 if date == min(df_team["date"]) else 0 for date in df_team["date"]]
 
                 # combine df_team and df_all_games
                 df_all_games = pd.concat([df_all_games, df_team], ignore_index=True)
