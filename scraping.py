@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from time import sleep
+import time
 import random
 
 
@@ -28,6 +28,8 @@ def get_game_info(teams):
 
     for team in teams:
         for year in years:
+            print(f"Scraping {year} {team}...")
+
             try:
                 URL = f"https://www.baseball-reference.com/teams/{team}/{year}-schedule-scores.shtml"
                 res = requests.get(URL)
@@ -93,9 +95,9 @@ def get_game_info(teams):
                 # combine df_team and df_all_games
                 df_all_games = pd.concat([df_all_games, df_team], ignore_index=True)
 
-                sleep(random.uniform(1.5, 2.5))
+                time.sleep(random.uniform(1.5, 2.5))
             except Exception as e:
-                print("Error:", e)
+                print(f"Error scraping {year} {team}:", e)
             
     df_all_games.to_csv('data/game_data.csv', index=False, encoding='utf-8')
     return df_all_games
@@ -104,7 +106,10 @@ def get_game_info(teams):
 def main():
     """ Call get_game_info() to scrape baseball reference for game data for all teams (from get_teams()) from 2000-2024. """
     teams = get_teams()
+    start_time = time.time()
     get_game_info(teams)
+    end_time = time.time()
+    print("Execution time:", end_time - start_time)
 
 
 if __name__ == "__main__":
