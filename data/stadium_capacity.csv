@@ -1,9 +1,14 @@
 Team,Year,State,Stadium,Capacity
+ANA,1997,California,Angel Stadium,33851
+ANA,1998,California,Angel Stadium,45050
+ANA,1999,California,Angel Stadium,45050
 ANA,2000,California,Angel Stadium,45050
 ANA,2001,California,Angel Stadium,45050
 ANA,2002,California,Angel Stadium,45050
 ANA,2003,California,Angel Stadium,45050
 ANA,2004,California,Angel Stadium,45050
+ARI,1998,Arizona,Chase Field,48500
+ARI,1999,Arizona,Chase Field,48500
 ARI,2000,Arizona,Chase Field,48500
 ARI,2001,Arizona,Chase Field,48500
 ARI,2002,Arizona,Chase Field,49033
@@ -27,6 +32,16 @@ ARI,2019,Arizona,Chase Field,48519
 ARI,2022,Arizona,Chase Field,48519
 ARI,2023,Arizona,Chase Field,48519
 ARI,2024,Arizona,Chase Field,48405
+ATL,1990,Georgia,Fulton County Stadium,52007
+ATL,1991,Georgia,Fulton County Stadium,52007
+ATL,1992,Georgia,Fulton County Stadium,52013
+ATL,1993,Georgia,Fulton County Stadium,52013
+ATL,1994,Georgia,Fulton County Stadium,52013
+ATL,1995,Georgia,Fulton County Stadium,52710
+ATL,1996,Georgia,Fulton County Stadium,52763
+ATL,1997,Georgia,Turner Field,50528
+ATL,1998,Georgia,Turner Field,49714
+ATL,1999,Georgia,Turner Field,49714
 ATL,2000,Georgia,Turner Field,49714
 ATL,2001,Georgia,Turner Field,50096
 ATL,2002,Georgia,Turner Field,50096
@@ -50,6 +65,11 @@ ATL,2019,Georgia,SunTrust Park,41149
 ATL,2022,Georgia,Truist Park,41149
 ATL,2023,Georgia,Truist Park,41149
 ATL,2024,Georgia,Truist Park,41084
+BAL,1995,Maryland,Oriole Park,48041
+BAL,1996,Maryland,Oriole Park,48041
+BAL,1997,Maryland,Oriole Park,48079
+BAL,1998,Maryland,Oriole Park,48079
+BAL,1999,Maryland,Oriole Park,48079
 BAL,2000,Maryland,Oriole Park,48079
 BAL,2001,Maryland,Oriole Park,48190
 BAL,2002,Maryland,Oriole Park,48190
@@ -73,6 +93,11 @@ BAL,2019,Maryland,Oriole Park,45971
 BAL,2022,Maryland,Oriole Park,45971
 BAL,2023,Maryland,Oriole Park,45971
 BAL,2024,Maryland,Oriole Park,44970
+BOS,1995,Massachusetts,Fenway Park,33871
+BOS,1996,Massachusetts,Fenway Park,33871
+BOS,1997,Massachusetts,Fenway Park,33871
+BOS,1998,Massachusetts,Fenway Park,33871
+BOS,1999,Massachusetts,Fenway Park,33871
 BOS,2000,Massachusetts,Fenway Park,33871
 BOS,2001,Massachusetts,Fenway Park,33993
 BOS,2002,Massachusetts,Fenway Park,33993
@@ -96,6 +121,18 @@ BOS,2019,Massachusetts,Fenway Park,37731
 BOS,2022,Massachusetts,Fenway Park,37731
 BOS,2023,Massachusetts,Fenway Park,37731
 BOS,2024,Massachusetts,Fenway Park,37755
+CAL,1995,California,Angel Stadium,64593
+CAL,1996,California,Angel Stadium,64593
+CHC,1990,Illinois,Wrigley Field,38711
+CHC,1991,Illinois,Wrigley Field,38711
+CHC,1992,Illinois,Wrigley Field,38711
+CHC,1993,Illinois,Wrigley Field,38711
+CHC,1994,Illinois,Wrigley Field,38765
+CHC,1995,Illinois,Wrigley Field,38765
+CHC,1996,Illinois,Wrigley Field,38765
+CHC,1997,Illinois,Wrigley Field,38765
+CHC,1998,Illinois,Wrigley Field,38884
+CHC,1999,Illinois,Wrigley Field,38884
 CHC,2000,Illinois,Wrigley Field,38884
 CHC,2001,Illinois,Wrigley Field,39059
 CHC,2002,Illinois,Wrigley Field,39111
@@ -119,6 +156,11 @@ CHC,2019,Illinois,Wrigley Field,41649
 CHC,2022,Illinois,Wrigley Field,41649
 CHC,2023,Illinois,Wrigley Field,41649
 CHC,2024,Illinois,Wrigley Field,41649
+CHW,1995,Illinois,US Cellular Field,44321
+CHW,1996,Illinois,US Cellular Field,44321
+CHW,1997,Illinois,US Cellular Field,44321
+CHW,1998,Illinois,US Cellular Field,44321
+CHW,1999,Illinois,US Cellular Field,44321
 CHW,2000,Illinois,US Cellular Field,44321
 CHW,2001,Illinois,US Cellular Field,47522
 CHW,2002,Illinois,US Cellular Field,47098
@@ -142,6 +184,11 @@ CHW,2019,Illinois,Guaranteed Rate Field,40615
 CHW,2022,Illinois,Guaranteed Rate Field,40615
 CHW,2023,Illinois,Guaranteed Rate Field,40615
 CHW,2024,Illinois,Guaranteed Rate Field,40615
+CIN,1995,Ohio,Riverfront Stadium,52952
+CIN,1996,Ohio,Riverfront Stadium,52952
+CIN,1997,Ohio,Riverfront Stadium,52952
+CIN,1998,Ohio,Riverfront Stadium,52952
+CIN,1999,Ohio,Riverfront Stadium,52952
 CIN,2000,Ohio,Riverfront Stadium,52952
 CIN,2001,Ohio,Riverfront Stadium,40007
 CIN,2002,Ohio,Riverfront Stadium,40007
@@ -165,6 +212,11 @@ CIN,2019,Ohio,Great American Ball Park,42319
 CIN,2022,Ohio,Great American Ball Park,42319
 CIN,2023,Ohio,Great American Ball Park,42319
 CIN,2024,Ohio,Great American Ball Park,43500
+CLE,1995,Ohio,Progressive Field,42865
+CLE,1996,Ohio,Progressive Field,42865
+CLE,1997,Ohio,Progressive Field,43368
+CLE,1998,Ohio,Progressive Field,43368
+CLE,1999,Ohio,Progressive Field,43368
 CLE,2000,Ohio,Progressive Field,43368
 CLE,2001,Ohio,Progressive Field,43368
 CLE,2002,Ohio,Progressive Field,43368
@@ -188,6 +240,8 @@ CLE,2019,Ohio,Progressive Field,35225
 CLE,2022,Ohio,Progressive Field,35225
 CLE,2023,Ohio,Progressive Field,35225
 CLE,2024,Ohio,Progressive Field,34830
+COL,1998,Colorado,Coors Field,50200
+COL,1999,Colorado,Coors Field,50381
 COL,2000,Colorado,Coors Field,50381
 COL,2001,Colorado,Coors Field,50445
 COL,2002,Colorado,Coors Field,50445
@@ -211,6 +265,11 @@ COL,2019,Colorado,Coors Field,50398
 COL,2022,Colorado,Coors Field,50398
 COL,2023,Colorado,Coors Field,50398
 COL,2024,Colorado,Coors Field,50144
+DET,1995,Michigan,Tiger Stadium,52416
+DET,1996,Michigan,Tiger Stadium,52416
+DET,1997,Michigan,Tiger Stadium,46945
+DET,1998,Michigan,Tiger Stadium,46945
+DET,1999,Michigan,Tiger Stadium,46945
 DET,2000,Michigan,Comerica Park,40120
 DET,2001,Michigan,Comerica Park,40120
 DET,2002,Michigan,Comerica Park,40120
@@ -234,6 +293,8 @@ DET,2019,Michigan,Comerica Park,41297
 DET,2022,Michigan,Comerica Park,41297
 DET,2023,Michigan,Comerica Park,41297
 DET,2024,Michigan,Comerica Park,41083
+FLA,1998,Florida,Sun Life Stadium,42531
+FLA,1999,Florida,Sun Life Stadium,35521
 FLA,2000,Florida,Sun Life Stadium,36331
 FLA,2001,Florida,Sun Life Stadium,36331
 FLA,2002,Florida,Sun Life Stadium,36331
@@ -246,6 +307,16 @@ FLA,2008,Florida,Sun Life Stadium,38560
 FLA,2009,Florida,Sun Life Stadium,38560
 FLA,2010,Florida,Sun Life Stadium,38560
 FLA,2011,Florida,Sun Life Stadium,38560
+HOU,1990,Texas,Astrodome,54816
+HOU,1991,Texas,Astrodome,54816
+HOU,1992,Texas,Astrodome,54816
+HOU,1993,Texas,Astrodome,54816
+HOU,1994,Texas,Astrodome,54816
+HOU,1995,Texas,Astrodome,54816
+HOU,1996,Texas,Astrodome,54816
+HOU,1997,Texas,Astrodome,54816
+HOU,1998,Texas,Astrodome,54816
+HOU,1999,Texas,Astrodome,54816
 HOU,2000,Texas,Minute Maid Park,40950
 HOU,2001,Texas,Minute Maid Park,40950
 HOU,2002,Texas,Minute Maid Park,40950
@@ -269,6 +340,11 @@ HOU,2019,Texas,Minute Maid Park,41168
 HOU,2022,Texas,Minute Maid Park,41168
 HOU,2023,Texas,Minute Maid Park,41168
 HOU,2024,Texas,Minute Maid Park,41168
+KCR,1995,Missouri,Kauffman Stadium,40625
+KCR,1996,Missouri,Kauffman Stadium,40625
+KCR,1997,Missouri,Kauffman Stadium,40625
+KCR,1998,Missouri,Kauffman Stadium,40625
+KCR,1999,Missouri,Kauffman Stadium,40625
 KCR,2000,Missouri,Kauffman Stadium,40625
 KCR,2001,Missouri,Kauffman Stadium,40625
 KCR,2002,Missouri,Kauffman Stadium,40625
@@ -310,6 +386,11 @@ LAA,2019,California,Angel Stadium,45505
 LAA,2022,California,Angel Stadium,45505
 LAA,2023,California,Angel Stadium,45505
 LAA,2024,California,Angel Stadium,45517
+LAD,1995,California,Dodger Stadium,56000
+LAD,1996,California,Dodger Stadium,56000
+LAD,1997,California,Dodger Stadium,56000
+LAD,1998,California,Dodger Stadium,56000
+LAD,1999,California,Dodger Stadium,56000
 LAD,2000,California,Dodger Stadium,56000
 LAD,2001,California,Dodger Stadium,56000
 LAD,2002,California,Dodger Stadium,56000
@@ -344,6 +425,16 @@ MIA,2019,Florida,Marlins Park,36742
 MIA,2022,Florida,loanDepot Park,36742
 MIA,2023,Florida,loanDepot Park,36742
 MIA,2024,Florida,loanDepot Park,36742
+MIL,1990,Wisconsin,Milwaukee County Stadium,53192
+MIL,1991,Wisconsin,Milwaukee County Stadium,53192
+MIL,1992,Wisconsin,Milwaukee County Stadium,53192
+MIL,1993,Wisconsin,Milwaukee County Stadium,53192
+MIL,1994,Wisconsin,Milwaukee County Stadium,53192
+MIL,1995,Wisconsin,Milwaukee County Stadium,53192
+MIL,1996,Wisconsin,Milwaukee County Stadium,53192
+MIL,1997,Wisconsin,Milwaukee County Stadium,53192
+MIL,1998,Wisconsin,Milwaukee County Stadium,53192
+MIL,1999,Wisconsin,Milwaukee County Stadium,53192
 MIL,2000,Wisconsin,Milwaukee County Stadium,53192
 MIL,2001,Wisconsin,Miller Park,41900
 MIL,2002,Wisconsin,Miller Park,41900
@@ -367,6 +458,11 @@ MIL,2019,Wisconsin,Miller Park,41900
 MIL,2022,Wisconsin,American Family Field,41900
 MIL,2023,Wisconsin,American Family Field,41900
 MIL,2024,Wisconsin,American Family Field,41900
+MIN,1995,Minnesota,Metrodome,56783
+MIN,1996,Minnesota,Metrodome,56783
+MIN,1997,Minnesota,Metrodome,56783
+MIN,1998,Minnesota,Metrodome,48678
+MIN,1999,Minnesota,Metrodome,48678
 MIN,2000,Minnesota,Metrodome,48678
 MIN,2001,Minnesota,Metrodome,48678
 MIN,2002,Minnesota,Metrodome,48678
@@ -390,11 +486,26 @@ MIN,2019,Minnesota,Target Field,38649
 MIN,2022,Minnesota,Target Field,38649
 MIN,2023,Minnesota,Target Field,38649
 MIN,2024,Minnesota,Target Field,38544
+MON,1995,Canada,Olympic Stadium,45757
+MON,1996,Canada,Olympic Stadium,45757
+MON,1997,Canada,Olympic Stadium,45757
+MON,1998,Canada,Olympic Stadium,45757
+MON,1999,Canada,Olympic Stadium,45757
 MON,2000,Canada,Olympic Stadium,45757
 MON,2001,Canada,Olympic Stadium,45757
 MON,2002,Canada,Olympic Stadium,45757
 MON,2003,Canada,Olympic Stadium,45757
 MON,2004,Canada,Olympic Stadium,45757
+NYM,1990,New York,Shea Stadium,55601
+NYM,1991,New York,Shea Stadium,55601
+NYM,1992,New York,Shea Stadium,55601
+NYM,1993,New York,Shea Stadium,55601
+NYM,1994,New York,Shea Stadium,55777
+NYM,1995,New York,Shea Stadium,55777
+NYM,1996,New York,Shea Stadium,55777
+NYM,1997,New York,Shea Stadium,55777
+NYM,1998,New York,Shea Stadium,55777
+NYM,1999,New York,Shea Stadium,55777
 NYM,2000,New York,Shea Stadium,55777
 NYM,2001,New York,Shea Stadium,55777
 NYM,2002,New York,Shea Stadium,56749
@@ -418,6 +529,11 @@ NYM,2019,New York,Citi Field,41922
 NYM,2022,New York,Citi Field,41922
 NYM,2023,New York,Citi Field,41922
 NYM,2024,New York,Citi Field,41922
+NYY,1995,New York,Yankee Stadium I,57545
+NYY,1996,New York,Yankee Stadium I,57545
+NYY,1997,New York,Yankee Stadium I,57545
+NYY,1998,New York,Yankee Stadium I,57545
+NYY,1999,New York,Yankee Stadium I,57545
 NYY,2000,New York,Yankee Stadium I,57545
 NYY,2001,New York,Yankee Stadium I,57545
 NYY,2002,New York,Yankee Stadium I,57545
@@ -441,6 +557,11 @@ NYY,2019,New York,Yankee Stadium II,47309
 NYY,2022,New York,Yankee Stadium II,47309
 NYY,2023,New York,Yankee Stadium II,47309
 NYY,2024,New York,Yankee Stadium II,46537
+OAK,1995,California,O.co Coliseum,47313
+OAK,1996,California,O.co Coliseum,39875
+OAK,1997,California,O.co Coliseum,39875
+OAK,1998,California,O.co Coliseum,43662
+OAK,1999,California,O.co Coliseum,43662
 OAK,2000,California,O.co Coliseum,43662
 OAK,2001,California,O.co Coliseum,43662
 OAK,2002,California,O.co Coliseum,43662
@@ -464,6 +585,11 @@ OAK,2019,California,Oakland Coliseum,46785
 OAK,2022,California,Oakland Coliseum,46785
 OAK,2023,California,Oakland Coliseum,46785
 OAK,2024,California,Oakland Coliseum,46847
+PHI,1995,Pennsylvania,Veterans Stadium,62530
+PHI,1996,Pennsylvania,Veterans Stadium,62136
+PHI,1997,Pennsylvania,Veterans Stadium,62136
+PHI,1998,Pennsylvania,Veterans Stadium,62363
+PHI,1999,Pennsylvania,Veterans Stadium,62363
 PHI,2000,Pennsylvania,Veterans Stadium,62363
 PHI,2001,Pennsylvania,Veterans Stadium,61831
 PHI,2002,Pennsylvania,Veterans Stadium,61831
@@ -487,6 +613,11 @@ PHI,2019,Pennsylvania,Citizens Bank Park,43674
 PHI,2022,Pennsylvania,Citizens Bank Park,43674
 PHI,2023,Pennsylvania,Citizens Bank Park,43674
 PHI,2024,Pennsylvania,Citizens Bank Park,42792
+PIT,1995,Pennsylvania,Three Rivers Stadium,47952
+PIT,1996,Pennsylvania,Three Rivers Stadium,47952
+PIT,1997,Pennsylvania,Three Rivers Stadium,47952
+PIT,1998,Pennsylvania,Three Rivers Stadium,47952
+PIT,1999,Pennsylvania,Three Rivers Stadium,47952
 PIT,2000,Pennsylvania,Three Rivers Stadium,47952
 PIT,2001,Pennsylvania,PNC Park,37898
 PIT,2002,Pennsylvania,PNC Park,37898
@@ -510,6 +641,11 @@ PIT,2019,Pennsylvania,PNC Park,38362
 PIT,2022,Pennsylvania,PNC Park,38362
 PIT,2023,Pennsylvania,PNC Park,38362
 PIT,2024,Pennsylvania,PNC Park,38747
+SDP,1995,California,Qualcomm Stadium,47750
+SDP,1996,California,Qualcomm Stadium,49639
+SDP,1997,California,Qualcomm Stadium,59771
+SDP,1998,California,Qualcomm Stadium,67544
+SDP,1999,California,Qualcomm Stadium,66307
 SDP,2000,California,Qualcomm Stadium,66307
 SDP,2001,California,Qualcomm Stadium,66307
 SDP,2002,California,Qualcomm Stadium,66307
@@ -533,6 +669,11 @@ SDP,2019,California,Petco Park,42445
 SDP,2022,California,Petco Park,42445
 SDP,2023,California,Petco Park,42445
 SDP,2024,California,Petco Park,40209
+SEA,1995,Washington,Kingdome,59166
+SEA,1996,Washington,Kingdome,59166
+SEA,1997,Washington,Kingdome,59166
+SEA,1998,Washington,Kingdome,59166
+SEA,1999,Washington,Kingdome,59166
 SEA,2000,Washington,Safeco Field,47116
 SEA,2001,Washington,Safeco Field,47116
 SEA,2002,Washington,Safeco Field,47116
@@ -556,6 +697,11 @@ SEA,2019,Washington,T-Mobile Park,47943
 SEA,2022,Washington,T-Mobile Park,47943
 SEA,2023,Washington,T-Mobile Park,47943
 SEA,2024,Washington,T-Mobile Park,47929
+SFG,1995,California,Candlestick Park,58000
+SFG,1996,California,Candlestick Park,58000
+SFG,1997,California,Candlestick Park,58000
+SFG,1998,California,Candlestick Park,58000
+SFG,1999,California,Candlestick Park,58000
 SFG,2000,California,AT&T Park,40930
 SFG,2001,California,AT&T Park,41059
 SFG,2002,California,AT&T Park,41059
@@ -579,6 +725,11 @@ SFG,2019,California,Oracle Park,41915
 SFG,2022,California,Oracle Park,41915
 SFG,2023,California,Oracle Park,41915
 SFG,2024,California,Oracle Park,41265
+STL,1995,Missouri,Busch Memorial Stadium,57078
+STL,1996,Missouri,Busch Memorial Stadium,57673
+STL,1997,Missouri,Busch Memorial Stadium,49676
+STL,1998,Missouri,Busch Memorial Stadium,49676
+STL,1999,Missouri,Busch Memorial Stadium,49676
 STL,2000,Missouri,Busch Memorial Stadium,49676
 STL,2001,Missouri,Busch Memorial Stadium,50354
 STL,2002,Missouri,Busch Memorial Stadium,50354
@@ -625,6 +776,11 @@ TBR,2019,Florida,Tropicana,25025
 TBR,2022,Florida,Tropicana,25025
 TBR,2023,Florida,Tropicana,25025
 TBR,2024,Florida,Tropicana,25000
+TEX,1995,Texas,Globe Life Park,49292
+TEX,1996,Texas,Globe Life Park,49178
+TEX,1997,Texas,Globe Life Park,49166
+TEX,1998,Texas,Globe Life Park,49166
+TEX,1999,Texas,Globe Life Park,49166
 TEX,2000,Texas,Globe Life Park,49115
 TEX,2001,Texas,Globe Life Park,49115
 TEX,2002,Texas,Globe Life Park,49115
@@ -648,6 +804,11 @@ TEX,2019,Texas,Globe Life Park,49115
 TEX,2022,Texas,Globe Life Field,40300
 TEX,2023,Texas,Globe Life Field,40300
 TEX,2024,Texas,Globe Life Field,40300
+TOR,1995,Canada,Rogers Centre,50516
+TOR,1996,Canada,Rogers Centre,50516
+TOR,1997,Canada,Rogers Centre,50516
+TOR,1998,Canada,Rogers Centre,50516
+TOR,1999,Canada,Rogers Centre,45100
 TOR,2000,Canada,Rogers Centre,45100
 TOR,2001,Canada,Rogers Centre,45100
 TOR,2002,Canada,Rogers Centre,45100

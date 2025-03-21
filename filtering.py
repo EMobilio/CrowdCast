@@ -7,9 +7,9 @@ def filter_stadium_capacity():
    """
       Filters down the staidum capacity data to only include data from 2000 on.
    """
-   stadium_cap = pd.read_csv('data/stadium_capacity_full.csv')
+   stadium_cap = pd.read_csv('data/stadium_capacity.csv')
    stadium_cap = stadium_cap[stadium_cap["Year"] >= 2000]
-   stadium_cap.to_csv('data/stadium_capacity.csv', index=False, encoding='utf-8')
+   stadium_cap.to_csv('data/stadium_capacity_2000-2024.csv', index=False, encoding='utf-8')
 
 
 def filter_retrosheet_data():
@@ -19,7 +19,7 @@ def filter_retrosheet_data():
    retrosheet = pd.read_csv('data/retrosheet_gameinfo.csv')
    retrosheet = retrosheet[retrosheet["season"] >= 2000]
    retrosheet = retrosheet[~retrosheet['season'].isin([2020, 2021])]
-   retrosheet.to_csv('data/retrosheet_gameinfo_filtered.csv', index=False, encoding='utf-8')
+   retrosheet.to_csv('data/retrosheet_gameinfo_2000-2024.csv', index=False, encoding='utf-8')
 
 
 def main():
