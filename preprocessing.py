@@ -62,10 +62,11 @@ def update_hometeam_column(df):
 
 def merge_data():
     """
-       Adds weather data from retrosheet CSV to game_data CSV records, saving the merged data as a new CSV file.
+       Adds weather data and stadium from retrosheet and stadium capacity CSVs to game_data CSV records and returns the complete DataFrame.
     """
-    retrosheet_df = pd.read_csv("data/retrosheet_gameinfo_2000-2024.csv")
     game_data_df = pd.read_csv("data/game_data.csv")
+    retrosheet_df = pd.read_csv("data/retrosheet_gameinfo_2000-2024.csv")
+    stadium_df = pd.read_csv("data/stadium_capacity_2000-2024.csv")
 
     # call update_hometeam_column() to ensure retrosheet hometeam column matches baseball-reference team names
     retrosheet_df = update_hometeam_column(retrosheet_df)
@@ -90,15 +91,25 @@ def merge_data():
     # merge on date, team, and number
     merged_df = game_data_df.merge(retrosheet_df, left_on=['date', 'team', 'number'], 
                                 right_on=['date', 'team', 'number'], how='left')
+    
+    # create a year column and extract columns from stadium_df
+    merged_df["year"] = pd.to_datetime(merged_df["date"]).dt.year
+    stadium_df = stadium_df[["Team", "Year", "Stadium", "Capacity"]]
 
-    merged_df.to_csv("data/game_data.csv", index=False)
+    # merge in stadium data and drop the extra columns
+    merged_df = merged_df.merge(stadium_df, left_on=['team', 'year'], right_on=["Team", "Year"], how='left')
+    merged_df.rename(columns={"Stadium": "stadium", "Capacity": "capacity"}, inplace=True)
+    merged_df.drop(columns=["Team", "Year"], inplace=True)
+
+    #merged_df.to_csv("data/merged_data.csv", index=False)
     return merged_df
 
 
 def main():
     """
     """
-    merged_df = merge_data()
+    all_data_df = merge_data()
+
     
 
 if __name__ == "__main__":
