@@ -104,11 +104,46 @@ def merge_data():
     #merged_df.to_csv("data/merged_data.csv", index=False)
     return merged_df
 
+def clean_data(df):
+    """
+    """
+    # use record column to create a winning percentage column
+    df[['wins', 'losses']] = df['record'].str.split('-', expand=True).astype(int)
+    df['win_pct'] = df['wins'] / (df['wins'] + df['losses'])
+
+    # convert games_behind to float
+    df['games_behind'] = df['games_behind'].astype(str).str.strip()
+    df["games_behind"] = [0.0 if (x == 'Tied' or x == '0') 
+                          else -float(x.replace('up', '').strip()) if 'up' in x
+                          else float(x)
+                          for x in df["games_behind"]]
+
+
+    # convert runs_scored, runs_allowed, division_rank, and attendance to integer
+    df["runs_scored"] = df["runs_scored"].astyope(int)
+    df["runs_allowed"] = df["runs_allowed"].astyope(int)
+    df["division_rank"] = df["division_rank"].astype(int)
+    df["attendance"] = df["attendance"].str.replace(",", "").astype(int)
+
+    # drop duplicate rows and rows with missing attendance
+    df = df.drop_duplcates(inplace=True)
+    df = df.dropna(subset=["attendance"], inpace=True)
+    
+    return df
+
 
 def main():
     """
     """
     all_data_df = merge_data()
+
+    # get some info about the rows in the data
+    print("DF Shape:", all_data_df.shape)
+    print("DF Shape after dropping duplicates:", all_data_df.drop_duplicates().shape)
+    print("Number of missing attendance values:", all_data_df[all_data_df.attendance.isnull()].shape)
+    print("Number of double header games with attendance data:", all_data_df[((all_data_df.attendance.notnull()) & (all_data_df.dh == 1))].shape)
+
+    all_data_df = clean_data(all_data_df)
 
     
 
