@@ -104,12 +104,42 @@ def merge_data():
     #merged_df.to_csv("data/merged_data.csv", index=False)
     return merged_df
 
+def print_data_info(df):
+    """
+        Takes a DataFrame containing the merged game data and prints some summary information.
+    """
+    print("DF Shape:", df.shape)
+    print("DF Shape after dropping duplicates:", df.drop_duplicates().shape)
+    print("Number of missing attendance values:", df[df.attendance.isnull()].shape)
+    print("Number of double header games with attendance data:", df[((df.attendance.notnull()) & (df.dh == 1))].shape)
+
+#### TODO: DEAL WITH WINDSPEED, TEMP, SKY, PRECIP, NUMBER, CLI, ORIG_SCHEDULED, TIME, DH, INNINGS, RS, RA, W/L, OPP, @, BOXSCORE ####
 def clean_data(df):
     """
     """
+    # drop duplicate rows and rows with missing attendance
+    df.drop_duplicates(inplace=True)
+    df.dropna(subset=["attendance"], inplace=True)
+
+    # split up date column into year, month, day, and day of the week columns
+    df["date"] = pd.to_datetime(df["date"])
+    df["month"] = df.date.dt.month
+    df["day"] = df.date.dt.day
+    df["day_of_week"] = df.date.dt.dayofweek
+    df["day_of_week_name"] = df.date.dt.day_name()
+
+    # covnvert day_or_night column into a binary dummy variable
+    df["night_game"] = df["day_or_night"].apply(lambda x: 1 if x == "N" else 0)
+
     # use record column to create a winning percentage column
     df[['wins', 'losses']] = df['record'].str.split('-', expand=True).astype(int)
     df['win_pct'] = df['wins'] / (df['wins'] + df['losses'])
+    df["win_pct"].fillna(0, inplace=True)
+
+    # convert streak column to integer and fill missing values (first games of season) with 0
+    df["streak"] = df["streak"].astype(str).str.strip()
+    df["streak"].fillna("0", inplace=True)
+    df["streak"] = [len(x) if "+" in x else -len(x) if "-" in x else 0 for x in df["streak"]]
 
     # convert games_behind to float
     df['games_behind'] = df['games_behind'].astype(str).str.strip()
@@ -118,16 +148,19 @@ def clean_data(df):
                           else float(x)
                           for x in df["games_behind"]]
 
-
-    # convert runs_scored, runs_allowed, division_rank, and attendance to integer
-    df["runs_scored"] = df["runs_scored"].astyope(int)
-    df["runs_allowed"] = df["runs_allowed"].astyope(int)
+    # convert runs_scored, runs_allowed, division_rank, attendance, opening_day, capacity to integer
+    df["runs_scored"] = df["runs_scored"].astype(int)
+    df["runs_allowed"] = df["runs_allowed"].astype(int)
     df["division_rank"] = df["division_rank"].astype(int)
     df["attendance"] = df["attendance"].str.replace(",", "").astype(int)
+    df["opening_day"] = df["opening_day"].astype(int)
+    df["capacity"] = df["capacity"].astype(int)
+    df["temp"] = df["temp"].astype(int)
 
-    # drop duplicate rows and rows with missing attendance
-    df = df.drop_duplcates(inplace=True)
-    df = df.dropna(subset=["attendance"], inpace=True)
+    print(df[df['cLI'].isnull()])
+
+    # drop unnecessary columns
+    df.drop(columns=["winning_pitcher", "losing_pitcher", "save"], inplace=True)
     
     return df
 
@@ -135,16 +168,14 @@ def clean_data(df):
 def main():
     """
     """
-    all_data_df = merge_data()
+    # merge all game, weather, and stadium data
+    games_df = merge_data()
 
     # get some info about the rows in the data
-    print("DF Shape:", all_data_df.shape)
-    print("DF Shape after dropping duplicates:", all_data_df.drop_duplicates().shape)
-    print("Number of missing attendance values:", all_data_df[all_data_df.attendance.isnull()].shape)
-    print("Number of double header games with attendance data:", all_data_df[((all_data_df.attendance.notnull()) & (all_data_df.dh == 1))].shape)
+    print_data_info(games_df)
 
-    all_data_df = clean_data(all_data_df)
-
+    # clean the data
+    games_df = clean_data(games_df)
     
 
 if __name__ == "__main__":
