@@ -101,7 +101,6 @@ def merge_data():
     merged_df.rename(columns={"Stadium": "stadium", "Capacity": "capacity"}, inplace=True)
     merged_df.drop(columns=["Team", "Year"], inplace=True)
 
-    #merged_df.to_csv("data/merged_data.csv", index=False)
     return merged_df
 
 def print_data_info(df):
@@ -109,13 +108,39 @@ def print_data_info(df):
         Takes a DataFrame containing the merged game data and prints some summary information.
     """
     print("DF Shape:", df.shape)
+    print()
     print("DF Shape after dropping duplicates:", df.drop_duplicates().shape)
+    print()
     print("Number of missing attendance values:", df[df.attendance.isnull()].shape)
+    print()
+    print("Column types:")
+    print(df.dtypes)
+    print()
     print("Number of double header games with attendance data:", df[((df.attendance.notnull()) & (df.dh == 1))].shape)
+    print()
+    print("Number of nulls for each column:")
+    print(df.isnull().sum())
+    print()
+    print("precip value counts:")
+    print(df["precip"].value_counts(dropna=False))
+    print()
+    print("sky value counts:")
+    print(df["sky"].value_counts(dropna=False))
+    print()
+    print("Rows with missing cLI:")
+    print(df[df["cLI"].isnull()])
+    print()
+    print("Rows with missing weather data:")
+    print(df[df["temp"].isnull()])
+    print()
+    print("Rows with missing windspeed:")
+    print(df[df["windspeed"] == -1])
 
-#### TODO: DEAL WITH WINDSPEED, TEMP, SKY, PRECIP, NUMBER, CLI, ORIG_SCHEDULED, TIME, DH, INNINGS, RS, RA, W/L, OPP, @, BOXSCORE ####
+
 def clean_data(df):
     """
+        Takes a DataFrame containing merged game, stadium, and weather data and returns the cleaned DataFrame,
+        with converted data types, filled in missing values, encoded columns, dropped unnecessary columns, etc.
     """
     # drop duplicate rows and rows with missing attendance
     df.drop_duplicates(inplace=True)
@@ -142,40 +167,77 @@ def clean_data(df):
     df["streak"] = [len(x) if "+" in x else -len(x) if "-" in x else 0 for x in df["streak"]]
 
     # convert games_behind to float
-    df['games_behind'] = df['games_behind'].astype(str).str.strip()
+    df["games_behind"] = df["games_behind"].astype(str).str.strip()
     df["games_behind"] = [0.0 if (x == 'Tied' or x == '0') 
                           else -float(x.replace('up', '').strip()) if 'up' in x
                           else float(x)
                           for x in df["games_behind"]]
 
-    # convert runs_scored, runs_allowed, division_rank, attendance, opening_day, capacity to integer
-    df["runs_scored"] = df["runs_scored"].astype(int)
-    df["runs_allowed"] = df["runs_allowed"].astype(int)
+    # fill missing cLI values, from what I understand about cLI and the 
+    # missing instances I think forward filling is appropriate
+    df["cLI"] = df["cLI"].fillna(method="ffill")
+    df["cLI"].astype(float)
+
+    # manually fill in the missing temp, precip, windspeed, sky values lost in merge
+    # from NYY/NYM doubleheaders played at both stadiums
+    df.loc[(df['date'] == '2000-07-08') & (df['team'] == 'NYM'), ['temp', 'sky', 'precip', 'windspeed']] = [76, "sunny", "unknown", 13]
+    df.loc[(df['date'] == '2003-06-28') & (df['team'] == 'NYM'), ['temp', 'sky', 'precip', 'windspeed']] = [76, "sunny", "unknown", 6]
+    df.loc[(df['date'] == '2008-06-27') & (df['team'] == 'NYM'), ['temp', 'sky', 'precip', 'windspeed']] = [82, "unknown", "unknown", 8]
+    df.loc[(df['date'] == '2000-07-08') & (df['team'] == 'NYY'), ['temp', 'sky', 'precip', 'windspeed']] = [77, "sunny", "unknown", 11]
+    df.loc[(df['date'] == '2003-06-28') & (df['team'] == 'NYY'), ['temp', 'sky', 'precip', 'windspeed']] = [79, "sunny", "unknown", 7]
+    df.loc[(df['date'] == '2008-06-27') & (df['team'] == 'NYY'), ['temp', 'sky', 'precip', 'windspeed']] = [79, "unknown", "unknown", 3]
+
+    # manually replace temp value for rows with temp reported as 0 by mistake:
+    # HOU dome is always set a 73, TBR dome is always 72
+    df.loc[(df['date'] == '2024-09-08') & (df['team'] == 'HOU'), ["temp"]] = 73
+    df.loc[(df['date'] == '2024-06-24') & (df['team'] == 'TBR'), ["temp"]] = 72
+
+    # replace missing windspeeds (had value of -1) with true windspeeds obtained from https://www.wunderground.com/history
+    # 0 for the SEA game since it was in a dome
+    df.loc[(df['date'] == "2012-04-26") & (df['team'] == 'DET'), ["windspeed"]] = 14
+    df.loc[(df['date'] == "2022-05-05") & (df['team'] == 'SEA'), ["windspeed"]] = 0
+
+    # use orig_scheduled column to create a binary dummy variable indicating whether or not the game is a make-up
+    df["makeup"] = df["orig_scheduled"].notna().astype(int)
+
+    # convert division_rank, attendance, opening_day, dh, capacity, temp, windspeed to integer
     df["division_rank"] = df["division_rank"].astype(int)
     df["attendance"] = df["attendance"].str.replace(",", "").astype(int)
     df["opening_day"] = df["opening_day"].astype(int)
+    df["dh"] = df["dh"].astype(int)
     df["capacity"] = df["capacity"].astype(int)
     df["temp"] = df["temp"].astype(int)
-
-    print(df[df['cLI'].isnull()])
+    df["windspeed"] = df["windspeed"].astype(int)
 
     # drop unnecessary columns
-    df.drop(columns=["winning_pitcher", "losing_pitcher", "save"], inplace=True)
+    df.drop(columns=["winning_pitcher", "losing_pitcher", "save", "@", "boxscore", "wins",
+                     "losses", "innings", "day_or_night", "number", "record", "w_or_l",
+                     "runs_scored", "runs_allowed", "time", "orig_scheduled", "win"], inplace=True)
     
     return df
 
 
+#TODO: figure out what to do about unknowns in sky and precip
 def main():
     """
+        Driver for merging, exploring, cleaning, and saving collected data.
     """
     # merge all game, weather, and stadium data
     games_df = merge_data()
 
-    # get some info about the rows in the data
+    # get some info about the rows in the data, to be addressed in cleaning
+    print("PRE-CLEANING")
     print_data_info(games_df)
 
     # clean the data
     games_df = clean_data(games_df)
+
+    # check the data info after cleaning
+    print("POST-CLEANING")
+    print_data_info(games_df)
+
+    # save the cleaned data to a CSV file
+    games_df.to_csv("data/MLB_games_2000-2024.csv", index=False, encoding="utf-8")
     
 
 if __name__ == "__main__":
