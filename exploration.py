@@ -137,6 +137,7 @@ def generate_boxplots(game_data, save):
 
 def main():
     """
+        Generates summary stats and some plots for EDA of the data.
     """
     game_data = pd.read_csv("data/MLB_games_2000-2024.csv")
 
