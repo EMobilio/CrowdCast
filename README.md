@@ -5,7 +5,7 @@
 
 CrowdCast is a machine learning model aimed at predicting attendance at Major League Baseball games. At this stage, CrowdCast leverages linear regression methods to model the collected data, establishing a baseline for modeling the relationship between game and non-game related factors and MLB attendance.
 
-My presentation video can be found here: 
+My presentation video can be found here: https://www.youtube.com/watch?v=DQjQBMwV0cA
 
 ## Webscraping
 
@@ -29,7 +29,7 @@ Here we can see how attendance has trended over the years: ![Boxplot of attendan
 
 Finally, we see a very odd relationship between attendance and precipitation. Unfortunately, a large percentage of collected games include no description of the precipitation, and it is not necessarily safe to assume that means there was none during those games, so much of this data is unknown. However, oddly enough, in the games for which we do have the data, games with rain or a drizzle seem to have higher attendance than those with no precipitation: ![Boxplot of attendance by precipitation](plots/boxplots/att_by_precip.png)
 
-These are just some preliminary ways of visualizing this data. t-SNE was briefly attempted in order to give a 3D representation of the data, but more work is required.
+These are just some preliminary ways of visualizing this data. t-SNE was briefly attempted in order to give a 3D representation of the data, but more work is required. More plots of the data can be found in the /plots directory.
 
 ## Linear Modeling
 
