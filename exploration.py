@@ -88,7 +88,7 @@ def generate_boxplots(game_data, save):
     plt.xticks(rotation=45)
 
     if save:
-        plt.savefig("plots/boxplots/att_by_skypng", dpi=300, bbox_inches="tight")
+        plt.savefig("plots/boxplots/att_by_sky.png", dpi=300, bbox_inches="tight")
 
     # Attendance by day of the week
     plt.figure(figsize=(10, 5))
