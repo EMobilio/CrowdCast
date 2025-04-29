@@ -1,0 +1,33 @@
+### RANDOM FOREST INITIAL ATTEMPT ###
+
+Best parameters: {'max_depth': 20, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200}
+
+Random Forest Train Metrics:
+MAE: 2786.67
+MSE: 15248832.13
+RMSE: 3904.98
+R²: 0.87
+
+Random Forest Test Metrics:
+MAE: 3993.88
+MSE: 28171843.73
+RMSE: 5307.72
+R²: 0.76
+
+
+
+### XGBOOST INITIAL ATTEMPT ###
+
+Best parameters: {'colsample_bytree': 0.8, 'learning_rate': 0.3, 'max_depth': 7, 'n_estimators': 200, 'subsample': 1.0}
+
+XGBoost Train Metrics:
+MAE: 1993.83
+MSE: 7095589.07
+RMSE: 2663.75
+R²: 0.94
+
+XGBoost Test Metrics:
+MAE: 3233.67
+MSE: 18700122.65
+RMSE: 4324.36
+R²: 0.84
