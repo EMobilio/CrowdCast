@@ -31,3 +31,33 @@ MAE: 3233.67
 MSE: 18700122.65
 RMSE: 4324.36
 R²: 0.84
+
+
+Best parameters: {'gamma': 0, 'learning_rate': 0.1, 'max_depth': 10, 'min_child_weight': 10, 'n_estimators': 200, 'reg_alpha': 0.1, 'reg_lambda': 1}
+
+XGBoost Train Metrics:
+MAE: 1945.75
+MSE: 6996815.12
+RMSE: 2645.15
+R²: 0.94
+
+XGBoost Test Metrics:
+MAE: 3230.57
+MSE: 18637595.63
+RMSE: 4317.13
+R²: 0.84
+
+
+Best parameters: {'gamma': 0, 'learning_rate': 0.1, 'max_depth': 10, 'min_child_weight': 10, 'n_estimators': 300, 'reg_alpha': 0, 'reg_lambda': 1}
+
+XGBoost Train Metrics:
+MAE: 1568.46
+MSE: 4652534.64
+RMSE: 2156.97
+R²: 0.96
+
+XGBoost Test Metrics:
+MAE: 3154.56
+MSE: 18044407.62
+RMSE: 4247.87
+R²: 0.85

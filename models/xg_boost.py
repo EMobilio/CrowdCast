@@ -20,27 +20,51 @@ def train(game_data):
     # preprocess features
     features = preprocess(features, model="XGBoost")
 
-    # split the data into train and test
-    X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)
+    # split the data into train, validation, and test
+    X_full_train, X_test, y_full_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)
+    X_train, X_val, y_train, y_val = train_test_split(X_full_train, y_full_train, test_size=0.2, random_state=42) 
 
     # create the model
     xgb = XGBRegressor(objective='reg:squarederror', random_state=42)
 
     # param grid for Grid Search
     param_grid = {
-        'n_estimators': [100, 200],
-        'max_depth': [3, 5, 7],
-        'learning_rate': [0.01, 0.1, 0.3],
-        'subsample': [0.8, 1.0],
-        'colsample_bytree': [0.8, 1.0]
+        'n_estimators': [200, 300],
+        'max_depth': [5, 7, 10],
+        'learning_rate': [0.05, 0.1],
+        'gamma': [0, 1],
+        'min_child_weight': [10, 15],
+        'reg_alpha': [0, 0.1, 1],
+        'reg_lambda': [1, 5, 10]
     }
 
     # grid search with 5-fold CV
-    grid_search = GridSearchCV(xgb, param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1, verbose=1)
+    grid_search = GridSearchCV(
+        estimator=xgb,
+        param_grid=param_grid,
+        cv=5,
+        scoring='neg_mean_squared_error',
+        n_jobs=-1,
+        verbose=1
+    )
     grid_search.fit(X_train, y_train)
 
-    best_model = grid_search.best_estimator_
     print(f"\nBest parameters: {grid_search.best_params_}\n")
+
+    # fit the model with the best params with early stopping
+    best_params = grid_search.best_params_
+    best_model = XGBRegressor(
+        **best_params,
+        objective='reg:squarederror',
+        early_stopping_rounds=20,
+        random_state=42
+    )
+    best_model.fit(
+        X_train, y_train,
+        eval_set=[(X_val, y_val)],
+        verbose=False
+    )
+    best_model.save_model('xgboost_model.json')
 
     # make predictions
     y_train_pred = best_model.predict(X_train)
