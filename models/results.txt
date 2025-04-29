@@ -61,3 +61,25 @@ MAE: 3154.56
 MSE: 18044407.62
 RMSE: 4247.87
 R²: 0.85
+
+
+### LIGHTGBM ###
+
+Best parameters: {'learning_rate': 0.1, 'max_depth': 10, 'min_child_samples': 10, 'n_estimators': 300, 'num_leaves': 100}
+
+Training until validation scores don't improve for 20 rounds
+Did not meet early stopping. Best iteration is:
+[300]   valid_0's rmse: 4428.41 valid_0's l2: 1.96108e+07
+LightGBM Train Metrics:
+MAE: 2092.34
+MSE: 7723843.60
+RMSE: 2779.18
+R²: 0.93
+
+LightGBM Test Metrics:
+MAE: 3218.98
+MSE: 18512105.72
+RMSE: 4302.57
+R²: 0.84
+
+
