@@ -6,7 +6,7 @@ from sklearn.model_selection import GridSearchCV
 from xgboost import XGBRegressor
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from utils.preprocess import preprocess
-from utils.evaluation import print_metrics, eval_metrics, plot_residuals
+from utils.evaluation import print_metrics, eval_metrics, plot_residuals, plot_feature_importances, plot_actual_vs_predicted, plot_error_distribution, plot_shap_summary
 
 
 def train(game_data):
@@ -35,12 +35,12 @@ def train(game_data):
 
     # grid search with 5-fold CV
     param_grid = {
-        'n_estimators': [200, 300],
-        'max_depth': [7, 10],
-        'learning_rate': [0.01, 0.1],
-        'gamma': [0, 1],
-        'min_child_weight': [15, 20],
-        'reg_alpha': [0.1, 1],
+        'n_estimators': [300],
+        'max_depth': [7],
+        'learning_rate': [0.1],
+        'gamma': [0],
+        'min_child_weight': [15],
+        'reg_alpha': [0, 1],
         'reg_lambda': [5, 10],
     }
     grid_search = GridSearchCV(
@@ -58,7 +58,6 @@ def train(game_data):
     best_params = grid_search.best_params_
     best_model = XGBRegressor(**best_params, objective='reg:squarederror', random_state=42)
     best_model.fit(X_train_processed, y_train, eval_set=[(X_val_processed, y_val)], verbose=False)
-    best_model.save_model('xgboost_model.json')
 
     # make predictions
     y_train_pred = best_model.predict(X_train_processed)
@@ -70,8 +69,13 @@ def train(game_data):
     print_metrics(eval_metrics(y_test, y_test_pred), model_type="XGBoost", dataset_type="Test")
     print()
 
-    # plot residuals
+    # plot residuals, feature importances, SHAP summary, actual vs predicted, and error distribution
+    features_processed = preprocess(features.copy(), model="XGBoost")
     plot_residuals(y_test, y_test_pred, model_name="XGBoost")
+    plot_feature_importances(best_model, features_processed.columns, "XGBoost", top_n=50)
+    plot_actual_vs_predicted(y_test, y_test_pred, "XGBoost")
+    plot_error_distribution(y_test, y_test_pred, "XGBoost")
+    plot_shap_summary(best_model, X_train_processed, model_name="XGBoost")
 
     # perform cross-validation on full preprocessed set
     X_all = pd.concat([X_train, X_val, X_test])
@@ -88,7 +92,7 @@ def main():
         Performs preprocessing and training for an XGBoost model.
     """
     game_data = pd.read_csv("data/MLB_games_2000-2024.csv")
-    train(game_data)
+    model = train(game_data)
 
     
 if __name__ == "__main__":

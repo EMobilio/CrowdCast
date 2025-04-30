@@ -63,6 +63,23 @@ RMSE: 4247.87
 R²: 0.85
 
 
+### XGBOOST LABEL ENCODED
+
+Best parameters: {'gamma': 0, 'learning_rate': 0.1, 'max_depth': 10, 'min_child_weight': 15, 'n_estimators': 300, 'reg_alpha': 0.1, 'reg_lambda': 10}
+
+XGBoost Train Metrics:
+MAE: 1518.14
+MSE: 4329787.46
+RMSE: 2080.81
+R²: 0.96
+
+XGBoost Test Metrics:
+MAE: 3176.01
+MSE: 18361494.36
+RMSE: 4285.03
+R²: 0.84
+
+
 ### LIGHTGBM ###
 
 Best parameters: {'learning_rate': 0.1, 'max_depth': 10, 'min_child_samples': 10, 'n_estimators': 300, 'num_leaves': 100}
@@ -83,3 +100,40 @@ RMSE: 4302.57
 R²: 0.84
 
 
+
+### XGBOOST WITH CROSS VALIDATION ###
+
+Best parameters: {'gamma': 0, 'learning_rate': 0.1, 'max_depth': 10, 'min_child_weight': 15, 'n_estimators': 300, 'reg_alpha': 0.1, 'reg_lambda': 10}
+
+XGBoost Train Metrics:
+MAE: 1518.14
+MSE: 4329787.46
+RMSE: 2080.81
+R²: 0.96
+
+XGBoost Test Metrics:
+MAE: 3176.01
+MSE: 18361494.36
+RMSE: 4285.03
+R²: 0.84
+
+Cross-Validation R^2: 0.85 ± 0.00
+
+
+### BEST PERFORMANCE LEAST OVERFITTING ###
+
+Best parameters: {'gamma': 0, 'learning_rate': 0.1, 'max_depth': 7, 'min_child_weight': 15, 'n_estimators': 300, 'reg_alpha': 1, 'reg_lambda': 5}
+
+XGBoost Train Metrics:
+MAE: 2534.57
+MSE: 11424177.07
+RMSE: 3379.97
+R²: 0.90
+
+XGBoost Test Metrics:
+MAE: 3371.51
+MSE: 19920742.68
+RMSE: 4463.27
+R²: 0.83
+
+Cross-Validation R^2: 0.83 ± 0.00
