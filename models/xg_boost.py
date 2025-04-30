@@ -22,9 +22,9 @@ def train(game_data):
     X_train, X_val, y_train, y_val = train_test_split(X_full_train, y_full_train, test_size=0.2, random_state=42)
 
     # preprocess each set independently
-    X_train_processed = preprocess(X_train.copy(), model="XGBoost")
-    X_val_processed = preprocess(X_val.copy(), model="XGBoost")
-    X_test_processed = preprocess(X_test.copy(), model="XGBoost")
+    X_train_processed = preprocess(X_train.copy(), model="XGBoost", should_scale=False)
+    X_val_processed = preprocess(X_val.copy(), model="XGBoost", should_scale=False)
+    X_test_processed = preprocess(X_test.copy(), model="XGBoost", should_scale=False)
 
     # align val and test columns with training
     X_val_processed = X_val_processed.reindex(columns=X_train_processed.columns, fill_value=0)
@@ -70,7 +70,7 @@ def train(game_data):
     print()
 
     # plot residuals, feature importances, SHAP summary, actual vs predicted, and error distribution
-    features_processed = preprocess(features.copy(), model="XGBoost")
+    features_processed = preprocess(features.copy(), model="XGBoost", should_scale=False)
     plot_residuals(y_test, y_test_pred, model_name="XGBoost")
     plot_feature_importances(best_model, features_processed.columns, "XGBoost", top_n=50)
     plot_actual_vs_predicted(y_test, y_test_pred, "XGBoost")
@@ -80,7 +80,7 @@ def train(game_data):
     # perform cross-validation on full preprocessed set
     X_all = pd.concat([X_train, X_val, X_test])
     y_all = pd.concat([y_train, y_val, y_test])
-    X_all_processed = preprocess(X_all.copy(), model="XGBoost")
+    X_all_processed = preprocess(X_all.copy(), model="XGBoost", should_scale=False)
     scores = cross_val_score(best_model, X_all_processed, y_all, cv=5, scoring='r2', n_jobs=-1)
     print("Cross-Validation R^2: {:.2f} ± {:.2f}".format(scores.mean(), scores.std()))
 

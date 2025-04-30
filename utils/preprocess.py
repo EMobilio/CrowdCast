@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 
-def preprocess(game_data, model):
+def preprocess(game_data, model, should_scale=True):
     """
         Takes a DataFrame containing game data and a string and performs encoding and scaling of the data,
         returning the processed DataFrame.
@@ -30,9 +30,11 @@ def preprocess(game_data, model):
         game_data["month_sin"] = np.sin(2 * np.pi * game_data["month"] / 12)
         game_data["month_cos"] = np.cos(2 * np.pi * game_data["month"] / 12)
 
-    # original_column_names = game_data.columns
-    # scaler = StandardScaler()
-    # scaled_array = scaler.fit_transform(game_data)
-    # game_data = pd.DataFrame(scaled_array, columns=original_column_names) 
+    # scale if specified
+    if should_scale:
+        original_column_names = game_data.columns
+        scaler = StandardScaler()
+        scaled_array = scaler.fit_transform(game_data)
+        game_data = pd.DataFrame(scaled_array, columns=original_column_names) 
 
     return game_data

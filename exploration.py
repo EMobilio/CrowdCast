@@ -1,7 +1,14 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+import imageio
+import numpy as np
 import calendar
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from utils.preprocess import preprocess
 
 
 def get_summary(game_data):
@@ -19,7 +26,7 @@ def generate_corr_matrix(game_data, save):
     """
         Takes a DataFrame with game data and a boolean and generates a correlation matrix of the features.
     """
-    corr_matrix = game_data.corr()
+    corr_matrix = game_data.corr(numeric_only=True)
     plt.figure(figsize=(12, 8))
     sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
     plt.title("Correlation Matrix of Numerical Features")
@@ -70,7 +77,7 @@ def generate_boxplots(game_data, save):
     """
     # Attendance by precipitation
     plt.figure(figsize=(10, 5))
-    sns.boxplot(x=game_data['precip'], y=game_data['attendance'])
+    sns.boxplot(x=game_data['precip'], y=game_data['attendance'], palette=None, hue=game_data['precip'])
     plt.xlabel("Precipitation")
     plt.ylabel("Attendance")
     plt.title("Attendance by Precipitation")
@@ -81,7 +88,7 @@ def generate_boxplots(game_data, save):
 
     # Attendance by sky description 
     plt.figure(figsize=(10, 5))
-    sns.boxplot(x=game_data['sky'], y=game_data['attendance'])
+    sns.boxplot(x=game_data['sky'], y=game_data['attendance'], palette=None, hue=game_data['sky'])
     plt.xlabel("Sky Condition")
     plt.ylabel("Attendance")
     plt.title("Attendance by Sky Condition")
@@ -92,7 +99,9 @@ def generate_boxplots(game_data, save):
 
     # Attendance by day of the week
     plt.figure(figsize=(10, 5))
-    sns.boxplot(x=game_data['day_of_week_name'], y=game_data['attendance'], order=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+    sns.boxplot(x=game_data['day_of_week_name'], y=game_data['attendance'], 
+                order=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], 
+                palette=None, hue=game_data['day_of_week_name'])
     plt.xlabel("Day of the Week")
     plt.ylabel("Attendance")
     plt.title("Attendance by Day of the Week")
@@ -103,7 +112,7 @@ def generate_boxplots(game_data, save):
 
     # Attendance by Year
     plt.figure(figsize=(12, 5))
-    sns.boxplot(x=game_data['year'], y=game_data['attendance'])
+    sns.boxplot(x=game_data['year'], y=game_data['attendance'], palette=None, hue=game_data['year'].astype(str))
     plt.xlabel("Year")
     plt.ylabel("Attendance")
     plt.title("Attendance by Year")
@@ -114,7 +123,7 @@ def generate_boxplots(game_data, save):
 
     # Attendance by Month
     plt.figure(figsize=(10, 5))
-    sns.boxplot(x=game_data['month'], y=game_data['attendance'])
+    sns.boxplot(x=game_data['month'], y=game_data['attendance'], palette=None, hue=game_data['month'].astype(str))
     plt.xlabel("Month")
     plt.ylabel("Attendance")
     plt.title("Attendance by Month")
@@ -125,7 +134,7 @@ def generate_boxplots(game_data, save):
 
     # Attendance by Team
     plt.figure(figsize=(12, 5))
-    sns.boxplot(x=game_data['team'], y=game_data['attendance'])
+    sns.boxplot(x=game_data['team'], y=game_data['attendance'], palette=None, hue=game_data['team'])
     plt.xlabel("Team")
     plt.ylabel("Attendance")
     plt.title("Attendance by Team")
@@ -133,6 +142,49 @@ def generate_boxplots(game_data, save):
 
     if save:
         plt.savefig("plots/boxplots/att_by_team.png", dpi=300, bbox_inches="tight")
+
+
+def generate_tsne_3d_gif(X, y, perplexity=30, filename="tsne_3d.gif"):
+    """
+        Generates a rotating 3D t-SNE scatter plot of the dataset and saves it as a GIF.
+    """
+    tsne = TSNE(n_components=3, perplexity=perplexity, random_state=42)
+    X_embedded = tsne.fit_transform(X)
+
+    images = []
+    fig = plt.figure(figsize=(8, 6))
+    ax = fig.add_subplot(111, projection='3d')
+
+    norm = plt.Normalize(vmin=np.min(y), vmax=np.max(y))
+    cmap = plt.get_cmap('viridis')
+
+    for angle in range(0, 360, 5):
+        ax.clear()
+        scatter = ax.scatter(
+            X_embedded[:, 0], X_embedded[:, 1], X_embedded[:, 2],
+            c=y, cmap=cmap, norm=norm, s=10
+        )
+        ax.set_title("3D t-SNE: Attendance Visualization")
+        ax.view_init(30, angle)
+
+        # Add colorbar
+        if angle == 0:
+            mappable = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
+            mappable.set_array([])
+            cbar = plt.colorbar(mappable, ax=ax, shrink=0.6)
+            cbar.set_label("Attendance")
+
+        plt.tight_layout()
+
+        fname = f"frame_{angle}.png"
+        plt.savefig(fname, dpi=100)
+        images.append(imageio.imread(fname))
+
+    os.makedirs("plots", exist_ok=True)
+    imageio.mimsave(f"plots/{filename}", images, fps=10)
+
+    for fname in [f"frame_{a}.png" for a in range(0, 360, 5)]:
+        os.remove(fname)
 
 
 def main():
@@ -146,6 +198,8 @@ def main():
     generate_corr_matrix(game_data, save=True)
     generate_reg_plots(game_data, save=True)
     generate_boxplots(game_data, save=True)
+    X = preprocess(game_data.drop(columns=["attendance"]), model="XGBoost", should_scale=False)
+    generate_tsne_3d_gif(X, game_data["attendance"], filename="attendance_tsne.gif")
 
 
 if __name__ == "__main__":
