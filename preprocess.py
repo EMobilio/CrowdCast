@@ -217,7 +217,7 @@ def clean_data(df):
     return df
 
 
-def main():
+def preprocess():
     """
         Driver for merging, exploring, cleaning, and saving collected data.
     """
@@ -240,4 +240,4 @@ def main():
     
 
 if __name__ == "__main__":
-    main()
+    preprocess()
