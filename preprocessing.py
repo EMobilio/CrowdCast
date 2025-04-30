@@ -217,7 +217,6 @@ def clean_data(df):
     return df
 
 
-#TODO: figure out what to do about unknowns in sky and precip
 def main():
     """
         Driver for merging, exploring, cleaning, and saving collected data.

@@ -33,7 +33,7 @@ def print_metrics(metrics, model_type, dataset_type):
         print(f"{metric}: {value:.2f}")
 
 
-def plot_residuals(y_true, y_pred, model_name):
+def plot_residuals(y_true, y_pred, model_name, path="plots/residual_plots"):
     """
         Generate a residual plot to visualize the difference between the true and predicted values.
     """
@@ -45,10 +45,10 @@ def plot_residuals(y_true, y_pred, model_name):
     plt.title(f'Residual Plot - {model_name}')
     plt.xlabel('Predicted Values')
     plt.ylabel('Residuals')
-    plt.savefig(f"plots/residual_plots/{model_name}_residuals.png", dpi=300, bbox_inches="tight")
+    plt.savefig(f"{path}/{model_name}_residuals.png", dpi=300, bbox_inches="tight")
 
 
-def plot_feature_importances(model, feature_names, model_name, top_n=50):
+def plot_feature_importances(model, feature_names, model_name, top_n=50, path="plots/feature_plots"):
     """
         Plots the top N feature importances from a model.
     """
@@ -63,10 +63,10 @@ def plot_feature_importances(model, feature_names, model_name, top_n=50):
     plt.gca().invert_yaxis()
     plt.title("Feature Importances")
     plt.xlabel("Importance")
-    plt.savefig(f"plots/features/{model_name}_feature_importances.png", dpi=300, bbox_inches="tight")
+    plt.savefig(f"{path}/{model_name}_feature_importances.png", dpi=300, bbox_inches="tight")
 
 
-def plot_actual_vs_predicted(y_true, y_pred, model_name, title="Actual vs. Predicted Attendance"):
+def plot_actual_vs_predicted(y_true, y_pred, model_name, title="Actual vs. Predicted Attendance", path="plots"):
     """
         Plots the actual vs predicted values of a model to visualize performance.
     """
@@ -76,10 +76,10 @@ def plot_actual_vs_predicted(y_true, y_pred, model_name, title="Actual vs. Predi
     plt.xlabel("Actual Attendance")
     plt.ylabel("Predicted Attendance")
     plt.title(title)
-    plt.savefig(f"plots/{model_name}_actual_vs_predicted.png", dpi=300, bbox_inches="tight")
+    plt.savefig(f"{path}/{model_name}_actual_vs_predicted.png", dpi=300, bbox_inches="tight")
 
 
-def plot_error_distribution(y_true, y_pred, model_name):
+def plot_error_distribution(y_true, y_pred, model_name, path="plots"):
     """
         Plots the distribution of prediction errors of a model.
     """
@@ -90,10 +90,10 @@ def plot_error_distribution(y_true, y_pred, model_name):
     plt.xlabel("Error")
     plt.ylabel("Count")
     plt.grid(True)
-    plt.savefig(f"plots/{model_name}_error_distribution.png", dpi=300, bbox_inches="tight")
+    plt.savefig(f"{path}/{model_name}_error_distribution.png", dpi=300, bbox_inches="tight")
 
 
-def plot_shap_summary(model, X_train, model_name):
+def plot_shap_summary(model, X_train, model_name, path="plots/feature_plots"):
     """
         Generates a SHAP summary plot for a model showing the importances and effects of features.
     """
@@ -104,5 +104,5 @@ def plot_shap_summary(model, X_train, model_name):
     plt.ylabel("Feature")
     plt.title("SHAP Summary Plot")
     plt.tight_layout()
-    plt.savefig(f"plots/features/{model_name}_shap_summary.png", dpi=300, bbox_inches="tight")
+    plt.savefig(f"{path}/{model_name}_shap_summary.png", dpi=300, bbox_inches="tight")
     plt.close('all')

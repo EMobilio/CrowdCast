@@ -72,9 +72,9 @@ def train(game_data):
     # plot residuals, feature importances, SHAP summary, actual vs predicted, and error distribution
     features_processed = preprocess(features.copy(), model="XGBoost", should_scale=False)
     plot_residuals(y_test, y_test_pred, model_name="XGBoost")
-    plot_feature_importances(best_model, features_processed.columns, "XGBoost", top_n=50)
     plot_actual_vs_predicted(y_test, y_test_pred, "XGBoost")
     plot_error_distribution(y_test, y_test_pred, "XGBoost")
+    plot_feature_importances(best_model, features_processed.columns, "XGBoost", top_n=50)
     plot_shap_summary(best_model, X_train_processed, model_name="XGBoost")
 
     # perform cross-validation on full preprocessed set
