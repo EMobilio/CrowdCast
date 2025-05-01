@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
 from sklearn.manifold import TSNE
 import imageio
 import numpy as np
@@ -187,6 +188,28 @@ def generate_tsne_3d_gif(X, y, perplexity=30, filename="tsne_3d.gif"):
         os.remove(fname)
 
 
+def generate_tsne_3d_interactive(X, y, perplexity=30, filename="tsne_3d_interactive.html"):
+    """
+        Generates an interactive 3D t-SNE scatter plot of the dataset.
+    """
+    tsne = TSNE(n_components=3, perplexity=perplexity, random_state=42)
+    X_embedded = tsne.fit_transform(X)
+
+    df = pd.DataFrame(X_embedded, columns=["x", "y", "z"])
+    df["attendance"] = y
+
+    fig = px.scatter_3d(
+        df, x="x", y="y", z="z",
+        color="attendance",
+        color_continuous_scale="Viridis",
+        title="3D t-SNE: Attendance Visualization",
+        opacity=0.8
+    )
+    os.makedirs("plots", exist_ok=True)
+    fig.write_html(f"plots/{filename}")
+    fig.show()
+
+
 def main():
     """
         Generates summary stats and some plots for EDA of the data.
@@ -200,6 +223,7 @@ def main():
     generate_boxplots(game_data, save=True)
     X = preprocess(game_data.drop(columns=["attendance"]), model="XGBoost", should_scale=False)
     generate_tsne_3d_gif(X, game_data["attendance"], filename="attendance_tsne.gif")
+    generate_tsne_3d_interactive(X, game_data["attendance"])
 
 
 if __name__ == "__main__":
