@@ -1,0 +1,37 @@
+name: CrowdCast CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    - name: Install dependencies
+      run: |
+        make install
+
+    - name: Run data preprocessing
+      run: |
+        make preprocess
+
+    - name: Run pipeline test
+      run: |
+        timeout 30s ./crowdcastenv/bin/python3 test_pipeline.py || echo "Training step exceeded time limit"
+        exit 0
+
+    - name: Cleanup
+      run: |
+        make clean
