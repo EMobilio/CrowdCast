@@ -65,13 +65,13 @@ class CrowdCast:
         print("Cross-Validation R^2: {:.2f} ± {:.2f}".format(scores.mean(), scores.std()))
 
         # plot residuals, actual vs predicted, error distribution, feature importances, and SHAP summary
-        plot_residuals(y, y_pred, model_name="CrowdCast", path=".")
-        plot_actual_vs_predicted(y, y_pred, model_name="CrowdCast", path=".")
-        plot_error_distribution(y, y_pred, model_name="CrowdCast", path=".")
+        plot_residuals(y, y_pred, model_name="CrowdCast", path="./plots/CrowdCast")
+        plot_actual_vs_predicted(y, y_pred, model_name="CrowdCast", path="./plots/CrowdCast")
+        plot_error_distribution(y, y_pred, model_name="CrowdCast", path="./plots/CrowdCast")
         plot_feature_importances(self.model, full_features_processed.columns, 
                                  top_n=len(full_features_processed.columns), 
-                                 model_name="CrowdCast", path=".")
-        plot_shap_summary(self.model, self.X_train_processed, model_name="CrowdCast", path=".")
+                                 model_name="CrowdCast", path="./plots/CrowdCast")
+        plot_shap_summary(self.model, self.X_train_processed, model_name="CrowdCast", path="./plots/CrowdCast")
 
 
     def predict(self, X):
