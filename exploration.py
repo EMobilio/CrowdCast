@@ -188,7 +188,7 @@ def generate_tsne_3d_gif(X, y, perplexity=30, filename="tsne_3d.gif"):
         os.remove(fname)
 
 
-def generate_tsne_3d_interactive(X, y, perplexity=30, filename="tsne_3d_interactive.html"):
+def generate_tsne_3d_interactive(X, y, team, opponent, date, perplexity=30, filename="tsne_3d_interactive.html"):
     """
         Generates an interactive 3D t-SNE scatter plot of the dataset.
     """
@@ -197,13 +197,17 @@ def generate_tsne_3d_interactive(X, y, perplexity=30, filename="tsne_3d_interact
 
     df = pd.DataFrame(X_embedded, columns=["x", "y", "z"])
     df["attendance"] = y
+    df["date"] = date
+    df["team"] = team 
+    df["opponent"] = opponent
 
     fig = px.scatter_3d(
         df, x="x", y="y", z="z",
         color="attendance",
         color_continuous_scale="Viridis",
         title="3D t-SNE: Attendance Visualization",
-        opacity=0.8
+        opacity=0.8,
+        hover_data={"attendance": True, "team": True, "opponent": True, "date": True, }  # Shows attendance, team, opponent, and date on hover
     )
     os.makedirs("plots", exist_ok=True)
     fig.write_html(f"plots/{filename}")
@@ -215,6 +219,9 @@ def main():
         Generates summary stats and some plots for EDA of the data.
     """
     game_data = pd.read_csv("data/MLB_games_2000-2024.csv")
+    date = game_data["date"]
+    team = game_data["team"]
+    opponent = game_data["opponent"]
 
     # get summary and generate plots
     get_summary(game_data)
@@ -223,7 +230,7 @@ def main():
     generate_boxplots(game_data, save=True)
     X = preprocess(game_data.drop(columns=["attendance"]), model="XGBoost", should_scale=False)
     generate_tsne_3d_gif(X, game_data["attendance"], filename="attendance_tsne.gif")
-    generate_tsne_3d_interactive(X, game_data["attendance"])
+    generate_tsne_3d_interactive(X, game_data["attendance"], team, opponent, date)
 
 
 if __name__ == "__main__":
