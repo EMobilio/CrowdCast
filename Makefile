@@ -7,7 +7,10 @@ install:
 	$(PIP) install -r requirements.txt
 
 preprocess:
-	$(PYTHON) preprocess.py
+	$(PYTHON) preprocessing.py
+
+visualize:
+	$(PYTHON) exploration.py
 
 train:
 	$(PYTHON) train.py

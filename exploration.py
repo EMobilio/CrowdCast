@@ -182,7 +182,7 @@ def generate_tsne_3d_gif(X, y, perplexity=30, filename="tsne_3d.gif"):
         images.append(imageio.imread(fname))
 
     os.makedirs("plots", exist_ok=True)
-    imageio.mimsave(f"plots/{filename}", images, fps=10)
+    imageio.mimsave(f"plots/{filename}", images, fps=10, loop=0)
 
     for fname in [f"frame_{a}.png" for a in range(0, 360, 5)]:
         os.remove(fname)
