@@ -29,7 +29,7 @@ jobs:
 
     - name: Run pipeline test
       run: |
-        timeout 30s python3 test_pipeline.py || echo "Training step exceeded time limit"
+        timeout 30s ./crowdcastenv/bin/python3 test_pipeline.py || echo "Training step exceeded time limit"
         exit 0
 
     - name: Cleanup
