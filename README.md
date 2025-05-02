@@ -7,7 +7,7 @@
 
 CrowdCast is a machine learning model aimed at predicting attendance at Major League Baseball games. CrowdCast leverages XGBoost to model the complex relationship between schedule, performance, and weather factors and attendance. CrowdCast demonstrates strong performance, achieving impressive results despite the inherent variability and noise that comes with game attendance.
 
-My presentation video can be found here: [https://www.youtube.com/watch?v=DQjQBMwV0cA](https://youtu.be/Sy_gXpp_ib0)
+My presentation video can be found here: https://youtu.be/Sy_gXpp_ib0
 
 ## Reproducibility
 
