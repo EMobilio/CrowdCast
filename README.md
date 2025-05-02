@@ -7,9 +7,9 @@
 
 CrowdCast is a machine learning model aimed at predicting attendance at Major League Baseball games. CrowdCast leverages XGBoost to model the complex relationship between schedule, performance, and weather factors and attendance. CrowdCast demonstrates strong performance, achieving impressive results despite the inherent variability and noise that comes with game attendance.
 
-My presentation video can be found here: https://www.youtube.com/watch?v=DQjQBMwV0cA
+My presentation video can be found here: [https://www.youtube.com/watch?v=DQjQBMwV0cA](https://youtu.be/Sy_gXpp_ib0)
 
-## Reporoducability
+## Reproducibility
 
 To reproduce my results and train a CrowdCast model, be sure to have the `game_data.csv`, `retrosheet_gameinfo_2000-2024.csv`, and `stadium_capacity_2000-2024.csv` files in the data directory, and then run:
  - `make install` to create a virtual environment and install dependencies
@@ -41,7 +41,7 @@ Here we can see how attendance has trended over the years: ![Boxplot of attendan
 
 This plot shows a very odd relationship between attendance and precipitation. Unfortunately, a large percentage of collected games include no description of the precipitation, and it is not necessarily safe to assume that means there was none during those games, so much of this data is unknown. However, oddly enough, in the games for which we do have the data, games with rain or a drizzle seem to have higher attendance than those with no precipitation: ![Boxplot of attendance by precipitation](plots/boxplots/att_by_precip.png)
 
-Finally, this 3D t-SNE visualization provides a comprehensive view of the dataset, offering insight into the underlying structure and clustering of attendance data. The plot captures the high-dimensional relationships between data points and projects them into a three-dimensional space, facilitating a better understanding of the distribution and patterns within the attendance data. The 3D space reveals distinct clusters of high and low attendance games, highlighting potential patterns and separations within the data that CrowdCast will leverage for learning. 
+Finally, this 3D t-SNE visualization provides a comprehensive view of the dataset, offering insight into the underlying structure and clustering of attendance data. The plot captures the high-dimensional relationships between data points and projects them into a three-dimensional space, facilitating a better understanding of the distribution and patterns within the attendance data. The 3D space reveals distinct clusters of high and low attendance games, highlighting potential patterns and separations within the data that CrowdCast will leverage for learning. An interactive version of this plot is available in the [plots](plots/) directory (and can be generated following the commands specified above).
 
 ![3D t-SNE visualization gif](plots/attendance_tsne.gif)
 
@@ -61,7 +61,7 @@ XGBoost proved to be the most effective model for predicting attendance, and was
 
 ### Model Tuning
 
-Tuning the XGBoost model proved to be a rather complicated task. I utlized GridSearchCV to find optimal hyperparameters, but ultimately the job was not as simple as simply picking the parameters that led to the best test set performance. Overfitting was a major obstacle, as certain sets of parameters led to the highest test performance but also resulted in substantial overfitting. Although high test performance initially seems promising, overfitting is a significant issue as it signals that the model may not always generalize so well to unseen data. While the model may perform well on my test set, it may not maintain that level of performance on new data, which could undermine its reliability and reduce its ability to make accurate predictions in a potential production environment. Thus, my aim was to find hyperparameters that would combat overfitting, at the very least reducing it to a more reasonable level, while still maintaining strong test performace.
+Tuning the XGBoost model proved to be a rather complicated task. I utilized GridSearchCV to find optimal hyperparameters, but ultimately the job was not as simple as simply picking the parameters that led to the best test set performance. Overfitting was a major obstacle, as certain sets of parameters led to the highest test performance but also resulted in substantial overfitting. Although high test performance initially seems promising, overfitting is a significant issue as it signals that the model may not always generalize so well to unseen data. While the model may perform well on my test set, it may not maintain that level of performance on new data, which could undermine its reliability and reduce its ability to make accurate predictions in a potential production environment. Thus, my aim was to find hyperparameters that would combat overfitting, at the very least reducing it to a more reasonable level, while still maintaining strong test performance.
 
 The `max_depth` parameter was ultimately the key to all of this. A `max_depth` of 10 (combined with other parameters) yielded the absolute best test performance, but it resulted in substantial overfitting, with $$R^2$$ values around 0.96-0.97 on the training data. Deeper trees have much more flexibility and can follow noise in the training data, resulting in high training performance but much lower test performance. In this case, while test performance didn't suffer too much, the concern highlighted above remained.
 
@@ -83,17 +83,17 @@ To evaluate the model, I used an 80/20 train/test split. The training set was fu
 CrowdCast ultimately achieved an impressive $$R^2$$ of 0.83 on the test data. In further testing, 5-fold cross-validation resulted in a mean $$R^2$$ of 0.83 with a standard deviation of 0.00 across folds, indicating stable performance and underscoring the model's robustness and reliability. On the test set, the model also achieved an MAE of 3,371.51 and an RMSE of 4,463.27. There was still a bit of overfitting, as the training set $$R^2$$ was 0.90,  but this was not substantial enough to outweigh the model's high performance on the test data, making it a worthwhile tradeoff.
 
 
-I had hoped to gather data from the first month of the 2025 season to further test the model, but since the data comes from multiple sources which are not all up-to-date, this would have been very difficult amd would have required complicated tweaks to my webscraping script, so I leave this as future work.
+I had hoped to gather data from the first month of the 2025 season to further test the model, but since the data comes from multiple sources which are not all up-to-date, this would have been very difficult and would have required complicated tweaks to my webscraping script, so I leave this as future work.
 
 Below are some plots that reflect CrowdCast's performance. Here we can see the residual plot, a plot of the actual versus predicted attendance, and the distribution of prediction errors:
-![CrowdCast redisual plot](plots/CrowdCast/CrowdCast_residuals.png) 
-![CrowdCast actual vs. predicated attendance](plots/CrowdCast/CrowdCast_actual_vs_predicted.png)
+![CrowdCast residual plot](plots/CrowdCast/CrowdCast_residuals.png) 
+![CrowdCast actual vs. predicted attendance](plots/CrowdCast/CrowdCast_actual_vs_predicted.png)
 ![CrowdCast error distribution](plots/CrowdCast/CrowdCast_error_distribution.png)
 
 Here we can get a sense of the most important predictors of attendance and how they affect the model:
 ![CrowdCast feature importances](plots/CrowdCast/CrowdCast_feature_importances.png)
 ![CrowdCast SHAP plot](plots/CrowdCast/CrowdCast_shap_summary.png)
 
-Interestlingly, most of the weather factors are not particularly strong predictors, though I suspect this is due to this being the most incomplete component of the data. Whether or not the game is on opening day being the strongest predictor is fairly surprising as well. Unsurprisingly, general team performance factors like division rank and winning percentage have high importance, as well general information like the team and stadium. It seems, however, that recent team performance is not so important, as all of the last_10 columns have low importance. 
+Interestingly, most of the weather factors are not particularly strong predictors, though I suspect this is due to this being the most incomplete component of the data. Whether or not the game is on opening day being the strongest predictor is fairly surprising as well. Unsurprisingly, general team performance factors like division rank and winning percentage have high importance, as well general information like the team and stadium. It seems, however, that recent team performance is not so important, as all of the last_10 columns have low importance. 
 
 All of this goes to show how difficult it truly is to fully understand and predict attendance in professional sports. Many factors influence a person's decision to attend a game, from making plans well in advance to deciding at the last minute, making it challenging to account for the full range of behaviors. Weather plays an unpredictable role, with sudden changes affecting turnout. Certain teams have a stronger fanbase, naturally drawing larger crowds. These complexities make it clear that attendance is influenced by a variety of dynamic, often unpredictable factors, underscoring the challenge of building a model that can accurately capture and predict such a nuanced phenomenon. Given the complexity and unpredictability of these factors, CrowdCast's ability to achieve strong predictive performance is particularly impressive, demonstrating its robustness in capturing the intricacies of attendance behavior.
