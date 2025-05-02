@@ -63,7 +63,7 @@ RMSE: 4247.87
 R²: 0.85
 
 
-### XGBOOST LABEL ENCODED
+### XGBOOST LABEL ENCODED ###
 
 Best parameters: {'gamma': 0, 'learning_rate': 0.1, 'max_depth': 10, 'min_child_weight': 15, 'n_estimators': 300, 'reg_alpha': 0.1, 'reg_lambda': 10}
 
